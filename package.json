@@ -1,0 +1,38 @@
+{
+  "name": "advent_of_code_2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.19",
+    "yargs": "^15.4.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-sorted": "^0.2.0",
+    "eslint": "^6.7.1",
+    "eslint-plugin-mocha": "^6.2.2",
+    "mocha": "^8.1.1"
+  },
+  "scripts": {
+    "clean": "rm -rf tmp dist node_modules",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "mocha --exit --recursive --reporter=dot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laura-bergoens/advent_of_code_2020.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laura-bergoens/advent_of_code_2020/issues"
+  },
+  "homepage": "https://github.com/laura-bergoens/advent_of_code_2020#readme"
+}
