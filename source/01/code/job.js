@@ -1,63 +1,70 @@
 const _ = require('lodash');
 
-function _compute22(numbers) {
-  for (const littleN of numbers) {
-    for (const bigN of numbers) {
-      if (bigN !== littleN) {
-        const sum = littleN + bigN;
-        if (sum === 2020) {
-          return littleN * bigN;
-        }
-        if (sum > 2020) {
-          break;
-        }
-      }
-    }
+class ListItem {
+  constructor({ number, product }) {
+    this.number = number;
+    this.product = product;
+  }
+
+  static sum(i1, i2) {
+    return i1.number + i2.number;
+  }
+
+  static multiply(i1, i2) {
+    return i1.product * i2.product;
+  }
+
+  static buildFrom(i1, i2) {
+    return new ListItem({
+      number: ListItem.sum(i1, i2),
+      product: ListItem.multiply(i1, i2),
+    });
   }
 }
 
-function _compute33(numbers) {
-  for (const n1 of numbers) {
-    for (const n2 of numbers) {
-      if ((n1 + n2) > 2020) {
-        break;
-      }
-      if (n2 !== n1) {
-        for (const n3 of numbers) {
-          if (n3 !== n1) {
-            const sum = n1 + n2 + n3;
-            if (sum === 2020) {
-              return n1 * n2 * n3;
-            }
-            if (sum > 2020) {
-              break;
-            }
-          }
-        }
+function _computeListFromLists(l1, l2, max) {
+  const newList = [];
+  for (const i1 of l1) {
+    for (const i2 of l2) {
+      const sum = ListItem.sum(i1, i2);
+      if (sum <= max) {
+        newList.push(ListItem.buildFrom(i1, i2));
       }
     }
   }
+  return newList;
 }
 
-function job1(rawInput) {
-  let rawNumbers = rawInput.split('\n');
-  rawNumbers = _.map(rawNumbers, (n) => parseInt(n));
-  const rawTruc = _.sortBy(rawNumbers);
-  return _compute22(rawTruc);
+function _findSolution(list, sumGoal) {
+  const listItemSolution = _.find(list, (i) => i.number === sumGoal);
+  return listItemSolution.product;
 }
 
-function job2(rawInput) {
-  let rawNumbers = rawInput.split('\n');
-  rawNumbers = _.map(rawNumbers, (n) => parseInt(n));
-  rawNumbers.sort((na, nb) => {
-    if (na > nb) return 1;
-    if (na < nb) return -1;
-    if (na === nb) return 0;
-  });
-  return _compute33(rawNumbers);
+function _numbersStringToOrderedIntegersArray(rawInput) {
+  const numbersSorted = _.sortBy(rawInput.split('\n').map((n) => parseInt(n)));
+  return _.map(numbersSorted, (n) => new ListItem({ number: n, product: n*1 }))
+}
+
+function _mergeLists(lists, goal) {
+  return _.reduce(lists, (acc, list)  => {
+    if(_.isEmpty(acc)) {
+      return list;
+    }
+    return _computeListFromLists(acc, list, goal);
+  }, []);
+}
+
+function jobX(rawInput, times, goal) {
+  const originSortedList = _numbersStringToOrderedIntegersArray(rawInput);
+  const originalLists = [];
+  for(const time of new Array(times)) {
+    originalLists.push(_.cloneDeep(originSortedList));
+  }
+  const finalMergedList = _mergeLists(originalLists, goal);
+  return _findSolution(finalMergedList, goal);
 }
 
 module.exports = {
-  job1,
-  job2,
+  jobX,
 };
+

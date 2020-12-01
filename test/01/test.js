@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
 chai.use(require('chai-sorted'));
-const { job1, job2 } = require('../../source/01/code/job');
+const { jobX } = require('../../source/01/code/job');
 
 describe('01', () => {
   describe('job1', () => {
@@ -11,7 +11,7 @@ describe('01', () => {
       const rawInput = '2\n754\n2018\n1248\n7821';
 
       // when
-      const solution = job1(rawInput);
+      const solution = jobX(rawInput, 2, 2020);
 
       // then
       expect(solution).to.equal(2018 * 2);
@@ -24,7 +24,7 @@ describe('01', () => {
       const rawInput = '2\n754\n2018\n1248\n7821\n1264';
 
       // when
-      const solution = job2(rawInput);
+      const solution = jobX(rawInput, 3, 2020);
 
       // then
       expect(solution).to.equal(754 * 2 * 1264);

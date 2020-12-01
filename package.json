@@ -21,8 +21,8 @@
   },
   "scripts": {
     "clean": "rm -rf tmp dist node_modules",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint ./source",
+    "lint:fix": "eslint ./source --fix",
     "test": "mocha --exit --recursive --reporter=dot"
   },
   "repository": {
