@@ -24,7 +24,6 @@ const _ = require('lodash');
  *      Working with X as 5 is like merging list for X as 4 and X as 1 (original list)
  */
 
-
 class ListItem {
   constructor({ number, product }) {
     this.number = number;
@@ -62,32 +61,32 @@ function _mergeTwoLists(l1, l2, max) {
 
 function _findSolution(list, sumGoal) {
   const listItemSolution = _.find(list, (i) => i.number === sumGoal);
-  if(listItemSolution) return listItemSolution.product;
+  if (listItemSolution) return listItemSolution.product;
   return null;
 }
 
 function _numbersStringToOrderedIntegersArray(rawInput) {
   const numbersSorted = _.sortBy(rawInput.split('\n').map((n) => parseInt(n)));
-  return _.map(numbersSorted, (n) => new ListItem({ number: n, product: n*1 }))
+  return _.map(numbersSorted, (n) => new ListItem({ number: n, product: n * 1 }));
 }
 
 const mergedLists = {};
 function _mergePairList(list, times, goal) {
-  if(times in mergedLists) {
+  if (times in mergedLists) {
     return mergedLists[times];
   }
 
   // origins
-  if(times === 2) {
+  if (times === 2) {
     mergedLists[2] = _mergeTwoLists(list, list, goal);
     return mergedLists[2];
   }
-  if(times === 1) {
+  if (times === 1) {
     mergedLists[1] = list;
     return mergedLists[1];
   }
 
-  if(times % 2 === 0) {
+  if (times % 2 === 0) {
     const subList = _mergePairList(list, times / 2, goal);
     mergedLists[times] = _mergeTwoLists(subList, subList, goal);
   } else {
