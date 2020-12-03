@@ -44,12 +44,11 @@ Given the same example list from above:
 How many passwords are valid according to the new interpretation of the policies?
 **/
 
-
 async function main() {
   try {
     const rawInput = fs.readFileSync(INPUT, 'utf8');
-      const solution1 = jobFirstPolicy(rawInput);
-      console.log(`First policy: ${solution1}`);
+    const solution1 = jobFirstPolicy(rawInput);
+    console.log(`First policy: ${solution1}`);
     const solution2 = jobSecondPolicy(rawInput);
     console.log(`Second policy: ${solution2}`);
   } catch (error) {

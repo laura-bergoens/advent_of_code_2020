@@ -5,28 +5,28 @@ chai.use(require('chai-sorted'));
 const { jobFirstPolicy, jobSecondPolicy } = require('../../source/02/code/job');
 
 describe('02', () => {
-    describe('jobFirstPolicy', () => {
-        it('should return the count of valid paswords', () => {
-            // given
-            const rawInput = '1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc';
+  describe('jobFirstPolicy', () => {
+    it('should return the count of valid passwords', () => {
+      // given
+      const rawInput = '1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc';
 
-            // when
-            const countValidPasswords = jobFirstPolicy(rawInput);
+      // when
+      const countValidPasswords = jobFirstPolicy(rawInput);
 
-            // then
-            expect(countValidPasswords).to.equal(2);
-        });
+      // then
+      expect(countValidPasswords).to.equal(2);
     });
-    describe('jobSecondPolicy', () => {
-        it('should return the count of valid paswords', () => {
-            // given
-            const rawInput = '1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc';
+  });
+  describe('jobSecondPolicy', () => {
+    it('should return the count of valid passwords', () => {
+      // given
+      const rawInput = '1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc';
 
-            // when
-            const countValidPasswords = jobSecondPolicy(rawInput);
+      // when
+      const countValidPasswords = jobSecondPolicy(rawInput);
 
-            // then
-            expect(countValidPasswords).to.equal(1);
-        });
+      // then
+      expect(countValidPasswords).to.equal(1);
     });
+  });
 });
