@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
 chai.use(require('chai-sorted'));
-const { job } = require('../../source/03/code/job');
+const { job } = require('../source/03/code/job');
 
 describe('03', () => {
   describe('job', () => {

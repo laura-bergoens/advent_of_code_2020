@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
 chai.use(require('chai-sorted'));
-const { jobFirstPolicy, jobSecondPolicy } = require('../../source/02/code/job');
+const { jobFirstPolicy, jobSecondPolicy } = require('../source/02/code/job');
 
 describe('02', () => {
   describe('jobFirstPolicy', () => {
