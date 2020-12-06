@@ -56,7 +56,6 @@ const INPUT = `${__dirname}/../input/input.txt`;
  Count the number of valid passports - those that have all required fields. Treat cid as optional.
  In your batch file, how many passports are valid?
 
- Your puzzle answer was 216.
  --- Part Two ---
 
  The line is moving more quickly now, but you overhear airport security talking about how passports with
