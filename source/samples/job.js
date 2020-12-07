@@ -1,5 +1,5 @@
 module.exports = {
-    job() {
-        return 'ok';
-    }
-}
+  job() {
+    return 'ok';
+  },
+};
