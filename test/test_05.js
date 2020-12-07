@@ -1,8 +1,6 @@
 const fs = require('fs');
 const chai = require('chai');
 const expect = chai.expect;
-chai.use(require('chai-as-promised'));
-chai.use(require('chai-sorted'));
 const { jobGetHigher, jobFindAvailable } = require('../source/05/code/job');
 
 describe('05', () => {
