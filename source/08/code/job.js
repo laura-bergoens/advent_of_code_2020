@@ -1,9 +1,10 @@
 const _ = require('lodash');
 
 class Instruction {
-  constructor() {
+  constructor(rawInstruction) {
     this.executedCount = 0;
     this.altered = false;
+    this.rawInstruction = rawInstruction;
   }
 
   hasAlreadyBeenExecuted() {
@@ -33,26 +34,25 @@ class Instruction {
   static buildFromRawInstruction(rawInstruction) {
     const [operation, value] = rawInstruction.split(' ');
     if(operation === 'acc') {
-      return new AccInstruction(value);
+      return new AccInstruction(value, rawInstruction);
     }
     if(operation === 'jmp') {
-      return new JmpInstruction(value);
+      return new JmpInstruction(value, rawInstruction);
     }
     if(operation === 'nop') {
-      return new NopInstruction(value);
+      return new NopInstruction(value, rawInstruction);
     }
   }
 }
 
 class AccInstruction extends Instruction {
-  constructor(value) {
-    super();
+  constructor(value, rawInstruction) {
+    super(rawInstruction);
     this.value = parseInt(value);
   }
 
   do(currentIndex, currentCount) {
     super.do(currentIndex, currentCount);
-    console.log(`ACC ${this.value} FROM INDEX ${currentIndex} AND COUNT ${currentCount}`);
     return {
       newIndex: currentIndex + 1,
       newCount: currentCount + this.value,
@@ -73,14 +73,13 @@ class AccInstruction extends Instruction {
 }
 
 class NopInstruction extends Instruction {
-  constructor(value) {
-    super();
+  constructor(value, rawInstruction) {
+    super(rawInstruction);
     this.value = parseInt(value);
   }
 
   do(currentIndex, currentCount) {
     super.do(currentIndex, currentCount);
-    console.log(`NOP FROM INDEX ${currentIndex} AND COUNT ${currentCount}`);
     return {
       newIndex: currentIndex + 1,
       newCount: currentCount,
@@ -101,14 +100,13 @@ class NopInstruction extends Instruction {
 }
 
 class JmpInstruction extends Instruction {
-  constructor(value) {
-    super();
+  constructor(value, rawInstruction) {
+    super(rawInstruction);
     this.value = parseInt(value);
   }
 
   do(currentIndex, currentCount) {
     super.do(currentIndex, currentCount);
-    console.log(`JUMP ${this.value} FROM INDEX ${currentIndex} AND COUNT ${currentCount}`);
     return {
       newIndex: currentIndex + this.value,
       newCount: currentCount,
@@ -124,7 +122,7 @@ class JmpInstruction extends Instruction {
   }
 
   detectInfiniteLoop() {
-    return this.executedCount > 1;
+    return this.executedCount > 0;
   }
 }
 
@@ -145,7 +143,6 @@ class Instructions {
 
   executeInstructionsWhilePreventingInfiniteLoop() {
     _.each(this.instructions, (instruction) => {
-      console.log(instruction);
       instruction.resetExecutedCount();
     });
     this.internalCounter = 0;
@@ -155,13 +152,15 @@ class Instructions {
 
   executeInstructionWhilePreventingInfiniteLoop(i) {
     const instruction = this.instructions[i];
+    if(!instruction) {
+      return;
+    }
     if(instruction.detectInfiniteLoop()) {
-      console.log('out');
+      this.internalCounter = null;
       return;
     }
 
     const { newIndex, newCount } = instruction.do(i, this.internalCounter);
-    console.log(`NEW VALUES INDEX ${newCount} AND COUNT ${newIndex}`);
     this.internalCounter = newCount;
     this.executeInstructionWhilePreventingInfiniteLoop(newIndex);
   }
@@ -169,12 +168,10 @@ class Instructions {
   executeInstructionUntilTwice(i) {
     const instruction = this.instructions[i];
     if(instruction.hasAlreadyBeenExecuted()) {
-      console.log('out');
       return;
     }
 
     const { newIndex, newCount } = instruction.do(i, this.internalCounter);
-    console.log(`NEW VALUES INDEX ${newCount} AND COUNT ${newIndex}`);
     this.internalCounter = newCount;
     this.executeInstructionUntilTwice(newIndex);
   }
@@ -215,7 +212,7 @@ class Instructions {
 }
 
 module.exports = {
-  job(rawInput) {
+  jobOnlyOnce(rawInput) {
     const rawInstructions = rawInput.split('\n');
     const instructions = new Instructions(rawInstructions);
     instructions.executeInstructionsUntilTwice();
@@ -223,7 +220,7 @@ module.exports = {
   },
 
 
-  job2(rawInput) {
+  jobReplace(rawInput) {
     const rawInstructions = rawInput.split('\n');
     const instructions = new Instructions(rawInstructions);
     instructions.getCounterForWorkingAlteredInstructions();
