@@ -35,7 +35,7 @@ describe('09', () => {
         });
     });
     describe('jobEncryptionWeakness', () => {
-        it.only('should return encryption from weak', () => {
+        it('should return encryption from weak', () => {
             // given
             const rawInput = '35\n' +
                 '20\n' +

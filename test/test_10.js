@@ -1,6 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const { job } = require('../source/samples/job');
+const { job } = require('../source/10/code/job');
 
 describe('sample', () => {
     describe('job', () => {
