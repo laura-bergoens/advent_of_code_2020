@@ -1,6 +1,6 @@
-// const fs = require('fs');
+const fs = require('fs');
 const { job } = require('./job');
-// const INPUT = `${__dirname}/../input/input.txt`;
+const INPUT = `${__dirname}/../input/input.txt`;
 
 /**
 DESCRIPTION
@@ -8,8 +8,8 @@ DESCRIPTION
 
 async function main() {
   try {
-    // const rawInput = fs.readFileSync(INPUT, 'utf8');
-    const solution1 = job();
+    const rawInput = fs.readFileSync(INPUT, 'utf8');
+    const solution1 = job(rawInput);
     console.log(`solution1: ${solution1}`);
   } catch (error) {
     console.error('\n', error);
