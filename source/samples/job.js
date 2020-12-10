@@ -2,7 +2,7 @@ const { print } = require('../helper');
 // const { print } = require('../../helper');
 
 module.exports = {
-  job() {
+  job(_rawInput) {
     print('EMPTY');
     return 'ok';
   },
